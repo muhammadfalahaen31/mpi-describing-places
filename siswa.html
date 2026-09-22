@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mode Siswa | MPI Describing Places - Environmental Awareness</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col selection:bg-emerald-200 selection:text-emerald-900">
+
+  <!-- ==================== STUDENT HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-14 sm:h-16 gap-3">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-emerald-700 to-teal-500 text-white flex items-center justify-center text-base shadow-sm">
+            🌱
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block">Mode Siswa • XI Grade</span>
+            <h1 class="text-xs sm:text-sm font-extrabold text-slate-900">MPI Describing Places</h1>
+          </div>
+        </div>
+
+        <!-- Student Info & Controls -->
+        <div id="student-header-bar" class="hidden flex items-center gap-2">
+          <div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 rounded-xl border border-emerald-200 text-xs font-semibold text-emerald-950">
+            <span>👤</span>
+            <span id="student-header-name" class="max-w-[100px] sm:max-w-[140px] truncate">Siswa</span>
+            <span class="text-slate-300">|</span>
+            <span id="student-header-class" class="text-emerald-700 font-bold">XI</span>
+          </div>
+
+          <button 
+            id="audio-toggle-btn"
+            onclick="SoundManager.toggleMute(); this.textContent = SoundManager.muted ? '🔇' : '🔊';"
+            class="w-8 h-8 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 flex items-center justify-center text-xs text-slate-700">
+            🔊
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Only 2 Tabs: Assessment & Reflection) -->
+      <nav id="student-nav-bar" class="hidden flex items-center gap-2 py-2 border-t border-slate-100 text-xs sm:text-sm font-bold">
+        <button 
+          onclick="StudentApp.switchTab('assessment')" 
+          data-tab="assessment"
+          class="student-nav-btn px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-emerald-600 text-white shadow-sm">
+          <span>📋</span> 1. Asesmen (25 Soal)
+        </button>
+        <button 
+          onclick="StudentApp.switchTab('reflection')" 
+          data-tab="reflection"
+          class="student-nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5">
+          <span>🤔</span> 2. Refleksi Belajar
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6">
+    <div id="student-main-content"></div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white border-t border-slate-200 mt-auto py-4 text-center text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>SMA PLUS PGRI CIBINONG • XI Grade English Department</span>
+      <span>Pengembang: <strong>Muhammad Falahaen Jiddan, M.Pd.,Gr.</strong></span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/firebase-sync.js"></script>
+  <script src="js/student-app.js"></script>
+</body>
+</html>
