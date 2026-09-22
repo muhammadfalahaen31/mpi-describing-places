@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Describing Places: Environmental Awareness | Interactive Learning Media (MPI)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col selection:bg-emerald-200 selection:text-emerald-900">
+
+  <!-- ==================== TOP NAVIGATION HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="App.navigateToTab('home')">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-emerald-700 to-teal-500 text-white flex items-center justify-center text-xl shadow-md shadow-emerald-700/20">
+            🌱
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 block">Senior High School English • Grade XI</span>
+            <h1 class="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">Describing Places: <span class="text-emerald-700 font-semibold hidden sm:inline">Environmental Awareness</span></h1>
+          </div>
+        </div>
+
+        <!-- Student Status, Progress & Sound Controls -->
+        <div class="flex items-center gap-3 sm:gap-6">
+          
+          <!-- Overall Progress -->
+          <div class="hidden md:flex flex-col items-end gap-1">
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-600">
+              <span>Progress:</span>
+              <span id="header-progress-text" class="text-emerald-700 font-black">0%</span>
+            </div>
+            <div class="w-32 bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
+              <div id="header-progress-bar" class="bg-emerald-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Student Greeting Badge -->
+          <div class="flex items-center gap-2 px-3 py-1.5 bg-slate-100/90 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700">
+            <span>👤</span>
+            <span id="header-student-name" class="max-w-[110px] sm:max-w-[150px] truncate">Candidate</span>
+          </div>
+
+          <!-- Audio Synthesizer Mute Toggle -->
+          <button 
+            id="audio-toggle-btn"
+            onclick="SoundManager.toggleMute(); this.textContent = SoundManager.muted ? '🔇' : '🔊';"
+            title="Toggle Audio Feedback"
+            class="w-9 h-9 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 flex items-center justify-center text-sm text-slate-700 transition-colors">
+            🔊
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs Bar -->
+      <nav class="flex items-center gap-1 sm:gap-2 overflow-x-auto py-2 border-t border-slate-100 custom-scrollbar text-xs sm:text-sm font-bold">
+        <button data-tab="home" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-emerald-600 text-white shadow-sm shrink-0">
+          <span>🏠</span> Home
+        </button>
+        <button data-tab="explore" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5 shrink-0">
+          <span>🔍</span> Explore
+        </button>
+        <button data-tab="learn" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5 shrink-0">
+          <span>📚</span> Learn
+        </button>
+        <button data-tab="practice" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5 shrink-0">
+          <span>🎯</span> Practice
+        </button>
+        <button data-tab="assessment" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5 shrink-0">
+          <span>📋</span> Assessment (25Q)
+        </button>
+        <button data-tab="reflection" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5 shrink-0">
+          <span>🤔</span> Reflection
+        </button>
+        <button data-tab="results" class="nav-tab-btn px-3 sm:px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1.5 shrink-0">
+          <span>📊</span> Evaluation / Result
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    
+    <!-- Tab 1: HOME -->
+    <section id="tab-view-home" class="tab-page-view">
+      <div id="home-tab-content"></div>
+    </section>
+
+    <!-- Tab 2: EXPLORE -->
+    <section id="tab-view-explore" class="tab-page-view hidden">
+      <div id="explore-tab-content"></div>
+    </section>
+
+    <!-- Tab 3: LEARN -->
+    <section id="tab-view-learn" class="tab-page-view hidden">
+      <div id="learn-tab-content"></div>
+    </section>
+
+    <!-- Tab 4: PRACTICE -->
+    <section id="tab-view-practice" class="tab-page-view hidden">
+      <div id="practice-tab-content"></div>
+    </section>
+
+    <!-- Tab 5: ASSESSMENT -->
+    <section id="tab-view-assessment" class="tab-page-view hidden">
+      <div id="assessment-tab-content"></div>
+    </section>
+
+    <!-- Tab 6: REFLECTION -->
+    <section id="tab-view-reflection" class="tab-page-view hidden">
+      <div id="reflection-tab-content"></div>
+    </section>
+
+    <!-- Tab 7: RESULTS / TEACHER DASHBOARD -->
+    <section id="tab-view-results" class="tab-page-view hidden">
+      <div id="results-tab-content"></div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white border-t border-slate-200 mt-auto py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="text-base">🌳</span>
+        <span><strong>MPI Describing Places</strong> • Environmental Awareness Curriculum</span>
+      </div>
+      <div class="text-center md:text-right">
+        <span>Developed by: <strong class="text-slate-700">Muhammad Falahaen Jiddan, M.Pd.,Gr.</strong></span>
+        <span class="block text-[11px] text-slate-400 mt-0.5">SMA PLUS PGRI CIBINONG • Senior High School English Department</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Target Container -->
+  <div id="student-modal-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/firebase-sync.js"></script>
+  <script src="js/practice.js"></script>
+  <script src="js/assessment.js"></script>
+  <script src="js/results.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
