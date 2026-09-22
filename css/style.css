@@ -10,12 +10,14 @@ body {
   background-color: #f8fafc;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 /* Custom Scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -60,11 +62,22 @@ body {
   animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Mobile & Tablet Readability Enhancements */
+@media (max-width: 640px) {
+  body {
+    font-size: 15px;
+  }
+
+  button, input, select, textarea {
+    font-size: 15px !important;
+  }
+}
+
 /* Highlight Token Styling */
 .token-item {
   display: inline-block;
   margin: 1px 2px;
-  padding: 2px 6px;
+  padding: 3px 7px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
