@@ -1,9 +1,10 @@
 /**
- * MASTER DATA MODULE - MPI DESCRIBING PLACES (REVISED FOR GRADE XI)
+ * MASTER DATA MODULE - MPI DESCRIBING PLACES (GRADE XI ENGLISH)
  * Developer: Muhammad Falahaen Jiddan, M.Pd.,Gr.
  * Target: Senior High School Grade XI English
  * Theme: Environmental Awareness (School & Home Surroundings)
- * Vocabulary: Simple, clear, and student-friendly
+ * Assessment: 25 Questions with Plausible, Length-Balanced Distractors
+ * Distribution: 40% LOTS (10 Qs), 40% MOTS (10 Qs), 20% HOTS (5 Qs)
  */
 
 const MPI_DATA = {
@@ -18,7 +19,7 @@ const MPI_DATA = {
 
   explore: {
     title: "Our School Green Garden",
-    subtitle: "Look at our school garden and neighborhood environment. Click each sense to discover simple observations.",
+    subtitle: "Observe our school garden and neighborhood environment. Click each sense to discover sensory details.",
     imageDescription: "A clean and green school garden with shady trees, colorful flowers, neat stone pathways, recycling bins, and small wooden benches.",
     senses: {
       see: {
@@ -26,13 +27,13 @@ const MPI_DATA = {
         icon: "👀",
         color: "emerald",
         badge: "Visual Details",
-        description: "What objects, colors, and clean areas can you see?",
+        description: "What physical objects, colors, and clean areas can you see?",
         items: [
-          { text: "Tall green trees with shady leaves", tag: "Trees & Plants" },
-          { text: "Bright yellow and red flowers", tag: "Garden Flora" },
-          { text: "Clean walking paths without plastic trash", tag: "Schoolyard" },
-          { text: "Green and yellow recycling bins", tag: "Waste Sorting" },
-          { text: "Small wooden benches for resting", tag: "Facilities" }
+          { text: "Tall green trees providing cool shade", tag: "Trees & Plants" },
+          { text: "Bright yellow and red blooming flowers", tag: "Garden Flora" },
+          { text: "Clean walking paths without plastic litter", tag: "Schoolyard" },
+          { text: "Green, yellow, and red recycling bins", tag: "Waste Sorting" },
+          { text: "Neat wooden benches for resting under trees", tag: "Facilities" }
         ]
       },
       hear: {
@@ -40,12 +41,12 @@ const MPI_DATA = {
         icon: "👂",
         color: "teal",
         badge: "Sound Details",
-        description: "What peaceful natural sounds can you hear?",
+        description: "What peaceful natural sounds can you hear in this environment?",
         items: [
-          { text: "Small birds singing in the morning", tag: "Birds" },
-          { text: "Leaves moving gently in the wind", tag: "Breeze" },
-          { text: "Water flowing from the small garden fountain", tag: "Water" },
-          { text: "Students talking politely under the tree", tag: "School Life" }
+          { text: "Small birds singing melodiously in the branches", tag: "Birds" },
+          { text: "Leaves moving gently in the afternoon breeze", tag: "Breeze" },
+          { text: "Water flowing softly from the garden fountain", tag: "Water" },
+          { text: "Students talking politely under the shady tree", tag: "School Life" }
         ]
       },
       smell: {
@@ -53,12 +54,12 @@ const MPI_DATA = {
         icon: "👃",
         color: "sky",
         badge: "Scent Details",
-        description: "What fresh and natural scents are in the air?",
+        description: "What fresh and natural scents fill the air?",
         items: [
-          { text: "Fresh and clean morning air", tag: "Fresh Air" },
-          { text: "Sweet smell of jasmine flowers", tag: "Flowers" },
-          { text: "Wet soil after the morning rain", tag: "Earth" },
-          { text: "Fresh aroma of green grass", tag: "Grass" }
+          { text: "Fresh and clean morning air rich in oxygen", tag: "Fresh Air" },
+          { text: "Sweet fragrance of blooming jasmine flowers", tag: "Flowers" },
+          { text: "Damp, earthy scent of wet soil after morning rain", tag: "Earth" },
+          { text: "Refreshing aroma of freshly cut green grass", tag: "Grass" }
         ]
       },
       feel: {
@@ -66,12 +67,12 @@ const MPI_DATA = {
         icon: "✋",
         color: "indigo",
         badge: "Touch & Temperature",
-        description: "What temperatures and textures can you feel?",
+        description: "What temperatures and textures can you experience?",
         items: [
-          { text: "Cool breeze under the big trees", tag: "Temperature" },
-          { text: "Soft green grass under our shoes", tag: "Texture" },
-          { text: "Warm morning sunshine on our skin", tag: "Sunlight" },
-          { text: "Smooth wooden surface of the bench", tag: "Furniture" }
+          { text: "Cool, soothing breeze under the big shady trees", tag: "Temperature" },
+          { text: "Soft green grass under our walking shoes", tag: "Texture" },
+          { text: "Warm morning sunlight touching our skin", tag: "Sunlight" },
+          { text: "Smooth wooden surface of the park benches", tag: "Furniture" }
         ]
       },
       taste: {
@@ -79,24 +80,24 @@ const MPI_DATA = {
         icon: "👅",
         color: "amber",
         badge: "Contextual (Edible Plants)",
-        description: "Taste applies when the place has edible fruits, clean water, or garden vegetables.",
+        description: "Taste applies when the place contains edible fruits, clean spring water, or garden harvests.",
         items: [
-          { text: "Sweet taste of ripe mangoes from the backyard tree", tag: "Fruit" },
+          { text: "Sweet and juicy mangoes harvested from the backyard", tag: "Fruit" },
           { text: "Crisp and fresh taste of school garden spinach", tag: "Vegetables" },
-          { text: "Cool and refreshing taste of clean drinking water", tag: "Clean Water" }
+          { text: "Cool and refreshing taste of natural drinking water", tag: "Clean Water" }
         ]
       }
     },
     quickCheckPrompt: {
       question: "Which sensory observation best describes a clean and healthy school garden?",
       options: [
-        "A. Thick black smoke from burning trash",
-        "B. Chirping birds, sweet flower scent, and shady green trees",
-        "C. Dirty plastic bags scattered on the ground",
-        "D. Loud motorbike noise from the street"
+        "A. Thick black smoke rising from burning plastic piles",
+        "B. Chirping birds, sweet flower scent, and shady trees",
+        "C. Scattered plastic bags floating in dirty canal water",
+        "D. Loud motorbike engine noises from the crowded street"
       ],
       correct: 1,
-      explanation: "Chirping birds (Hearing), sweet flower scent (Smelling), and shady green trees (Seeing) are positive sensory details of a healthy green garden."
+      explanation: "Chirping birds (Hearing), sweet flower scent (Smelling), and shady green trees (Seeing) are positive sensory details representing a healthy green garden."
     }
   },
 
@@ -115,28 +116,28 @@ const MPI_DATA = {
         sentence: "Our school garden is [very clean] every day.",
         phrase: "very clean",
         pattern: "Pattern 1 (Adverb + Adjective)",
-        explanation: "'very' is an adverb of degree and 'clean' is an adjective."
+        explanation: "'very' is an adverb of degree modifying the adjective 'clean'."
       },
       {
         id: 2,
         sentence: "The backyard is [full of green plants].",
         phrase: "full of green plants",
         pattern: "Pattern 2 (Adjective + Prepositional Phrase)",
-        explanation: "'full' is an adjective followed by the prepositional phrase 'of green plants'."
+        explanation: "'full' is the head adjective followed by the prepositional phrase 'of green plants'."
       },
       {
         id: 3,
         sentence: "The neighborhood park is [pleasant to visit] in the afternoon.",
         phrase: "pleasant to visit",
         pattern: "Pattern 3 (Adjective + To-Infinitive)",
-        explanation: "'pleasant' is an adjective followed by 'to visit' (to-infinitive)."
+        explanation: "'pleasant' is the adjective followed by the to-infinitive 'to visit'."
       },
       {
         id: 4,
         sentence: "Our schoolyard is [famous for its shady trees].",
         phrase: "famous for its shady trees",
         pattern: "Pattern 2 (Adjective + Prepositional Phrase)",
-        explanation: "'famous' is an adjective followed by 'for its shady trees'."
+        explanation: "'famous' is an adjective complemented by 'for its shady trees'."
       }
     ],
 
@@ -205,7 +206,7 @@ const MPI_DATA = {
         options: [
           "A. very tall",
           "B. full of colorful flowers",
-          "C. easy to clean",
+          "C. easy to water",
           "D. walking quickly",
           "E. really fresh"
         ],
@@ -560,44 +561,42 @@ Every afternoon, the air in the backyard feels cool and breezy. Rian and his sis
 Because of their hard work, the backyard looks beautiful and stays free of mosquitoes and bad smells. Rian feels happy and proud of his home garden. It provides fresh organic vegetables for his family and creates a relaxing green space right at home.`
     },
 
-    // EXACTLY 25 QUESTIONS:
-    // Part A: Reading Comprehension (10 Qs) -> Text 1 (Q1-5), Text 2 (Q6-10)
-    // Part B: Grammar in Context (15 Qs) -> Adjective Phrases & Simple Present (Q11-25)
-    // Level Distribution: LOTS = 10 Qs (40%), MOTS = 10 Qs (40%), HOTS = 5 Qs (20%)
+    // EXACTLY 25 BALANCED, PLAUSIBLE QUESTIONS (40% LOTS, 40% MOTS, 20% HOTS)
+    // Options in each question are equal in length and complexity
     questions: [
       // ==================== PART A: READING COMPREHENSION (10 QUESTIONS) ====================
-      // --- TEXT 1 (Q1 - Q5) ---
+      // --- TEXT 1: School Environment (Q1 - Q5) ---
       {
         id: 1,
         part: "A",
         textId: "text-1",
         questionNumber: 1,
-        question: "What is the text mainly about?",
+        question: "What is the main topic of the passage about our school environment?",
         options: [
-          "A. The history of building a school library",
-          "B. A clean and green schoolyard that creates a comfortable learning environment",
-          "C. How to sell goldfish to local pet shops",
-          "D. The difficult tests given by high school teachers",
-          "E. The traffic noise in front of the school gate"
+          "A. A new modern cafeteria that sells healthy organic snacks to all students.",
+          "B. A clean and green schoolyard that creates a comfortable learning atmosphere.",
+          "C. A large sports field that hosts regular inter-school football competitions.",
+          "D. An indoor science laboratory that breeds various species of tropical fish.",
+          "E. An old administration building that requires major maintenance and painting."
         ],
         answer: 1,
         topic: "Reading Comprehension",
         skill: "Main Idea",
         difficulty: "LOTS",
-        explanation: "The text describes the green schoolyard, its clean conditions, and its positive impact on students."
+        explanation: "The passage describes how the clean, green schoolyard provides a healthy, comfortable place for studying and relaxing."
       },
       {
         id: 2,
         part: "A",
         textId: "text-1",
         questionNumber: 2,
-        question: "Where is the small fish pond located?",
+        question: "Where is the small fish pond located according to the second paragraph?",
         options: [
-          "A. Outside the main school gate",
-          "B. Inside the teachers' office",
-          "C. In the center of the school garden",
-          "D. On the roof of the classroom building",
-          "E. Under the parking lot"
+          "A. Right beside the teacher office near the front gate entrance.",
+          "B. Behind the student bicycle parking area across the driveway.",
+          "C. In the central area of the green garden behind the building.",
+          "D. Underneath the tall mahogany trees beside the main cafeteria.",
+          "E. Along the stone pathway that leads toward the sports field."
         ],
         answer: 2,
         topic: "Reading Comprehension",
@@ -610,13 +609,13 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         part: "A",
         textId: "text-1",
         questionNumber: 3,
-        question: "What sensory detail can students hear in the morning?",
+        question: "What natural auditory detail can students experience in the morning?",
         options: [
-          "A. Loud truck sirens from the road",
-          "B. Birds singing in the tree branches",
-          "C. Heavy factory machines operating",
-          "D. Thunderstorms and lightning strikes",
-          "E. Shouting from outside the school"
+          "A. Gentle drops of morning rain tapping on classroom glass windows.",
+          "B. Sweet songbirds singing melodiously in the shady tree branches.",
+          "C. Loud traffic engines accelerating on the street outside the gate.",
+          "D. Electric water pumps filling the school tank continuously.",
+          "E. Loud acoustic bells ringing to announce the start of morning class."
         ],
         answer: 1,
         topic: "Reading Comprehension",
@@ -629,53 +628,53 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         part: "A",
         textId: "text-1",
         questionNumber: 4,
-        question: "Why does the school provide three colored bins in the garden?",
+        question: "Why does the school place three different colored bins near the pond?",
         options: [
-          "A. To paint the benches with different colors",
-          "B. To help students separate organic, plastic, and hazardous waste",
-          "C. To feed the goldfish in the pond",
-          "D. To store school books during the rainy season",
-          "E. To catch wild birds in the trees"
+          "A. To decorate the garden area with bright and attractive modern colors.",
+          "B. To help students separate organic, plastic, and hazardous waste properly.",
+          "C. To store gardening tools and water hoses used by school groundkeepers.",
+          "D. To collect plastic bottles for selling to local commercial recycling shops.",
+          "E. To provide dry storage containers for textbooks during rainy afternoons."
         ],
         answer: 1,
         topic: "Reading Comprehension",
-        skill: "Cause and Effect / Purpose",
+        skill: "Purpose / Cause and Effect",
         difficulty: "MOTS",
-        explanation: "Paragraph 2 explains the three bins: green for organic, yellow for plastic, and red for hazardous waste."
+        explanation: "Paragraph 2 explains the three bins: green for organic waste, yellow for plastic, and red for hazardous items."
       },
       {
         id: 5,
         part: "A",
         textId: "text-1",
         questionNumber: 5,
-        question: "What can we conclude about the students' environmental habits at this school?",
+        question: "What can be inferred about the environmental habits of the school community?",
         options: [
-          "A. Students regularly litter under the trees.",
-          "B. Students care about cleanliness and actively maintain their green schoolyard.",
-          "C. Students avoid visiting the garden during break time.",
-          "D. Students do not know how to sort plastic waste.",
-          "E. Students prefer studying in a dirty room."
+          "A. Students only clean the schoolyard when teachers give disciplinary assignments.",
+          "B. Students and teachers share responsibility for keeping their surroundings clean.",
+          "C. Teachers do all the sweeping while students remain inside air-conditioned rooms.",
+          "D. The school hires outside private workers because students refuse to sort trash.",
+          "E. Cleaning activities only happen when government supervisors visit the campus."
         ],
         answer: 1,
         topic: "Reading Comprehension",
         skill: "Inference",
         difficulty: "HOTS",
-        explanation: "The text explains that nobody litters, and students and teachers work together to maintain the clean space."
+        explanation: "The text explains that students and teachers collaborate to care for the garden, and nobody throws trash on the ground."
       },
 
-      // --- TEXT 2 (Q6 - Q10) ---
+      // --- TEXT 2: Home Environment (Q6 - Q10) ---
       {
         id: 6,
         part: "A",
         textId: "text-2",
         questionNumber: 6,
-        question: "What does Rian's family grow in their home backyard?",
+        question: "Which useful plants are cultivated in Rian's home backyard garden?",
         options: [
-          "A. Only tall pine trees for sale",
-          "B. Vegetables like spinach, tomatoes, chili peppers, and a mango tree",
-          "C. Dangerous wild grass and weeds",
-          "D. Industrial plastic plants",
-          "E. Rice fields on the roof"
+          "A. Rare medicinal herbs, wild mushrooms, pine trees, and decorative yellow orchids.",
+          "B. Fresh vegetable crops like spinach, tomatoes, chili peppers, and a mango tree.",
+          "C. Tall bamboo trees, sweet corn fields, sweet potatoes, and several apple trees.",
+          "D. Flowering potted roses, green tea bushes, watermelons, and citrus lemon trees.",
+          "E. Hydroponic lettuce beds, purple eggplants, red strawberries, and papaya plants."
         ],
         answer: 1,
         topic: "Reading Comprehension",
@@ -688,32 +687,32 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         part: "A",
         textId: "text-2",
         questionNumber: 7,
-        question: "What does Rian do to help take care of the garden in the afternoon?",
+        question: "How do Rian and his sister contribute to caring for their family garden?",
         options: [
-          "A. He cuts down all the vegetable plants.",
-          "B. He waters the vegetables with clean well water.",
-          "C. He throws plastic wrappers under the tree.",
-          "D. He plays loud music in the garden.",
-          "E. He sells the soil to his neighbors."
+          "A. They repaint the garden fences and repair the water pump every Sunday morning.",
+          "B. Rian waters the vegetable beds while his sister clears dry leaves from the soil.",
+          "C. They harvest all the fresh vegetables to sell them at the local weekend market.",
+          "D. Rian cleans the fish tank while his sister sprays chemical weed killers outside.",
+          "E. They hire professional landscape workers to prune the mango tree branches."
         ],
         answer: 1,
         topic: "Reading Comprehension",
         skill: "Specific Detail",
         difficulty: "MOTS",
-        explanation: "Paragraph 2 states: 'Rian waters the vegetables with clean well water...'"
+        explanation: "Paragraph 2 states: 'Rian waters the vegetables with clean well water, while his sister removes dry fallen leaves from the soil.'"
       },
       {
         id: 8,
         part: "A",
         textId: "text-2",
         questionNumber: 8,
-        question: "In paragraph 2, what do Rian and his family use the compost box for?",
+        question: "What is the primary function of the small compost box in the backyard?",
         options: [
-          "A. To burn plastic bottles safely",
-          "B. To turn fruit peels and fallen leaves into natural fertilizer",
-          "C. To keep pet fish and turtles",
-          "D. To store dry clothes during the rain",
-          "E. To collect rainwater for washing motorbikes"
+          "A. To store dry firewood and charcoal safely away from rain during the monsoon.",
+          "B. To convert organic fruit peels and fallen leaves into natural plant fertilizer.",
+          "C. To collect clean rainwater for washing family motorbikes and garden benches.",
+          "D. To keep broken plastic containers and glass bottles away from family pets.",
+          "E. To breed beneficial earthworms and small bait fish for neighborhood anglers."
         ],
         answer: 1,
         topic: "Reading Comprehension",
@@ -728,89 +727,89 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         questionNumber: 9,
         question: "The word 'tidy' in paragraph 1 is closest in meaning to:",
         options: [
-          "A. neat and well organized",
-          "B. very dirty and messy",
-          "C. dangerous and dark",
-          "D. dry and empty",
-          "E. hot and crowded"
+          "A. neat, orderly, and well maintained",
+          "B. wide, spacious, and completely open",
+          "C. quiet, peaceful, and fully secluded",
+          "D. bright, colorful, and highly attractive",
+          "E. dense, overgrown, and deeply shadowed"
         ],
         answer: 0,
         topic: "Reading Comprehension",
         skill: "Vocabulary in Context",
         difficulty: "MOTS",
-        explanation: "'Tidy' means neat, clean, and well arranged."
+        explanation: "'Tidy' means neat, orderly, clean, and properly organized."
       },
       {
         id: 10,
         part: "A",
         textId: "text-2",
         questionNumber: 10,
-        question: "What is the main benefit of having a clean home garden for Rian's family?",
+        question: "What is the greatest environmental benefit that Rian's family receives from their garden?",
         options: [
-          "A. It makes the house noisy and crowded.",
-          "B. It provides fresh organic vegetables and a healthy, relaxing green space.",
-          "C. It invites mosquitoes and bad odors into the house.",
-          "D. It prevents the family from spending time outdoors.",
-          "E. It replaces all the furniture inside the living room."
+          "A. It generates significant commercial profits by supplying large local supermarkets.",
+          "B. It provides fresh organic vegetables and creates a healthy, relaxing atmosphere.",
+          "C. It completely replaces the need for municipal clean water and electricity lines.",
+          "D. It isolates the residential house from nearby neighbors and street conversations.",
+          "E. It allows the family to raise farm animals freely inside the residential zone."
         ],
         answer: 1,
         topic: "Reading Comprehension",
         skill: "Evaluating Benefits",
         difficulty: "HOTS",
-        explanation: "The final paragraph emphasizes that the garden provides fresh vegetables and a relaxing green home space."
+        explanation: "The concluding paragraph highlights that the garden yields fresh organic food and provides a relaxing green space at home."
       },
 
-      // ==================== PART B: GRAMMAR IN CONTEXT (15 QUESTIONS: Q11 - Q25) ====================
+      // ==================== PART B: GRAMMAR IN CONTEXT (15 QUESTIONS) ====================
       {
         id: 11,
         part: "B",
         textId: null,
         questionNumber: 11,
-        question: "Complete the sentence with the correct Adjective Phrase:\n'Our school garden is ______ every afternoon.'",
+        question: "Complete the sentence with the most appropriate Adjective Phrase (Pattern 1):\n'Our school garden is ______ throughout the day.'",
         options: [
-          "A. very clean and comfortable",
-          "B. cleanly very and comfort",
-          "C. very cleanly and comfortable",
-          "D. clean very and comfortably",
-          "E. cleanliness and comfort"
+          "A. very clean and peaceful",
+          "B. clean very and peaceful",
+          "C. cleanly quite and peace",
+          "D. cleanliness and restful",
+          "E. so cleanly and peaceful"
         ],
         answer: 0,
         topic: "Adjective Phrase",
         skill: "Pattern 1 (Adv + Adj)",
         difficulty: "LOTS",
-        explanation: "'very clean and comfortable' is an accurate adjective phrase (Adverb + Adjectives)."
+        explanation: "'very clean and peaceful' follows Pattern 1 (Adverb of degree + paired adjectives)."
       },
       {
         id: 12,
         part: "B",
         textId: null,
         questionNumber: 12,
-        question: "The mango tree in our backyard ______ sweet fruits every year.",
+        question: "The mango tree beside our wooden fence ______ sweet fruits every dry season.",
         options: [
-          "A. produce",
+          "A. is produce",
           "B. produces",
-          "C. producing",
-          "D. are produce",
-          "E. product"
+          "C. produce",
+          "D. producing",
+          "E. are produce"
         ],
         answer: 1,
         topic: "Simple Present Tense",
         skill: "Subject-Verb Agreement",
         difficulty: "LOTS",
-        explanation: "'The mango tree' is a singular subject (it), so the verb takes '-s' -> 'produces'."
+        explanation: "'The mango tree' is a singular subject (it), so the Simple Present verb takes '-s' -> 'produces'."
       },
       {
         id: 13,
         part: "B",
         textId: null,
         questionNumber: 13,
-        question: "Which of the following phrases is an Adjective + Prepositional Phrase (Pattern 2)?",
+        question: "Which of the following phrases is an example of Adjective + Prepositional Phrase (Pattern 2)?",
         options: [
-          "A. very green",
+          "A. really fresh and shady",
           "B. full of colorful flowers",
-          "C. easy to water",
-          "D. sweep quickly",
-          "E. singing sweetly"
+          "C. easy to water regularly",
+          "D. sweep the yard cleanly",
+          "E. singing happily in trees"
         ],
         answer: 1,
         topic: "Adjective Phrase",
@@ -823,127 +822,127 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         part: "B",
         textId: null,
         questionNumber: 14,
-        question: "Local volunteers ______ plastic trash around the neighborhood park every Sunday.",
+        question: "Local volunteers ______ plastic trash around the neighborhood park every Sunday morning.",
         options: [
           "A. collects",
           "B. collect",
           "C. collecting",
           "D. is collect",
-          "E. collector"
+          "E. are collects"
         ],
         answer: 1,
         topic: "Simple Present Tense",
         skill: "Plural Subject Agreement",
         difficulty: "LOTS",
-        explanation: "'Local volunteers' is a plural subject (they), which takes the base verb 'collect'."
+        explanation: "'Local volunteers' is a plural subject (they), requiring the base form of the verb -> 'collect'."
       },
       {
         id: 15,
         part: "B",
         textId: null,
         questionNumber: 15,
-        question: "The water in the small river ______ clear and ______ fresh.",
+        question: "The well water in the garden ______ crystal clear and ______ very refreshing.",
         options: [
           "A. look / feel",
           "B. looks / feels",
           "C. looking / feeling",
-          "D. look / feels",
-          "E. looks / feel"
+          "D. looks / feel",
+          "E. look / feels"
         ],
         answer: 1,
         topic: "Simple Present Tense",
         skill: "Uncountable Subject Agreement",
         difficulty: "LOTS",
-        explanation: "'The water' is uncountable singular, so both verbs add '-s' -> 'looks' and 'feels'."
+        explanation: "'The well water' is uncountable singular, so both verbs add '-s' -> 'looks' and 'feels'."
       },
       {
         id: 16,
         part: "B",
         textId: null,
         questionNumber: 16,
-        question: "The wooden bench under the tree is ______ for resting.",
+        question: "The wooden bench under the shady tree is ______ after a long walk.",
         options: [
-          "A. comfortable to use",
-          "B. comfortably to use",
-          "C. comfort to using",
-          "D. comfortable for use to",
-          "E. to use comfortable is"
+          "A. comfortable to sit on",
+          "B. comfortably to sit on",
+          "C. comfort for sitting to",
+          "D. to sit comfortable on",
+          "E. comfortable sitting on"
         ],
         answer: 0,
         topic: "Adjective Phrase",
         skill: "Pattern 3 (Adj + To-Inf)",
         difficulty: "LOTS",
-        explanation: "'comfortable to use' is Pattern 3: Adjective ('comfortable') + to-infinitive ('to use')."
+        explanation: "'comfortable to sit on' is Pattern 3: Adjective ('comfortable') + to-infinitive ('to sit on')."
       },
       {
         id: 17,
         part: "B",
         textId: null,
         questionNumber: 17,
-        question: "Choose the correct negative sentence in the Simple Present tense:",
+        question: "Choose the grammatically correct negative sentence in the Simple Present tense:",
         options: [
-          "A. Our school does not allow plastic waste in the garden.",
-          "B. Our school do not allow plastic waste in the garden.",
-          "C. Our school does not allows plastic waste in the garden.",
-          "D. Our school is not allow plastic waste in the garden.",
-          "E. Our school not allow plastic waste in the garden."
+          "A. Our school does not allow single-use plastic bottles in the garden.",
+          "B. Our school do not allow single-use plastic bottles in the garden.",
+          "C. Our school does not allows single-use plastic bottles in the garden.",
+          "D. Our school is not allow single-use plastic bottles in the garden.",
+          "E. Our school not does allow single-use plastic bottles in the garden."
         ],
         answer: 0,
         topic: "Simple Present Tense",
         skill: "Negative Form",
         difficulty: "MOTS",
-        explanation: "'Our school' (singular) takes 'does not + base verb (allow)'."
+        explanation: "'Our school' is singular, so the negative structure is 'does not + base verb (allow)'."
       },
       {
         id: 18,
         part: "B",
         textId: null,
         questionNumber: 18,
-        question: "Complete the sentence with the correct preposition:\n'The city park is famous ______ its clean lotus pond.'",
+        question: "The neighborhood eco-park is famous ______ its clean and beautiful lotus pond.",
         options: [
           "A. with",
           "B. for",
-          "C. in",
-          "D. at",
-          "E. to"
+          "C. about",
+          "D. from",
+          "E. upon"
         ],
         answer: 1,
         topic: "Adjective Phrase",
         skill: "Preposition Collocation",
         difficulty: "MOTS",
-        explanation: "'famous for' is the correct standard adjective + preposition phrase."
+        explanation: "'famous for' is the standard adjective + preposition collocation."
       },
       {
         id: 19,
         part: "B",
         textId: null,
         questionNumber: 19,
-        question: "______ your family clean the house yard every weekend?",
+        question: "Select the correct Simple Present question asking about family eco-habits:",
         options: [
-          "A. Do",
-          "B. Does",
-          "C. Is",
-          "D. Are",
-          "E. Doing"
+          "A. Do your family separate organic and plastic kitchen waste?",
+          "B. Does your family separate organic and plastic kitchen waste?",
+          "C. Does your family separates organic and plastic kitchen waste?",
+          "D. Is your family separate organic and plastic kitchen waste?",
+          "E. Are your family separates organic and plastic kitchen waste?"
         ],
         answer: 1,
         topic: "Simple Present Tense",
         skill: "Question Form",
         difficulty: "MOTS",
-        explanation: "'your family' is singular, so the question begins with 'Does + Subject + V1'."
+        explanation: "'your family' functions as a singular collective subject, requiring 'Does + Subject + base verb (separate)'."
       },
       {
         id: 20,
         part: "B",
         textId: null,
         questionNumber: 20,
-        question: "Complete the sentence with the correct simple present verbs:\n'Budi ______ the flowers while his mother ______ the dry leaves.'",
+        question: "Complete the sentence with the correct simple present verbs:\n'Budi ______ the vegetable beds while his mother ______ the dry leaves.'",
         options: [
           "A. waters / sweeps",
           "B. water / sweep",
-          "C. watering / sweeping",
-          "D. waters / sweep",
-          "E. water / sweeps"
+          "C. waters / sweep",
+          "D. water / sweeps",
+          "E. watering / sweeping"
         ],
         answer: 0,
         topic: "Simple Present Tense",
@@ -956,83 +955,83 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         part: "B",
         textId: null,
         questionNumber: 21,
-        question: "Which sentence has an ERROR in word order?",
+        question: "Which of the following sentences contains an ERROR in modifier word order?",
         options: [
-          "A. The home garden is very clean and green.",
-          "B. The schoolyard is full of shady trees.",
-          "C. The front porch is cleanly very in the morning.",
-          "D. The flower pot is easy to move.",
-          "E. The backyard is famous for its sweet fruits."
+          "A. The neighborhood park is quite peaceful in the afternoon.",
+          "B. The school garden is famous for its colorful rose bushes.",
+          "C. The front terrace is cleanly very after the morning rain.",
+          "D. The small compost box is easy to manage for beginners.",
+          "E. The home backyard is rich in nutritious green vegetables."
         ],
         answer: 2,
         topic: "Adjective Phrase",
         skill: "Word Order Error",
         difficulty: "MOTS",
-        explanation: "'cleanly very' is incorrect. The adverb 'very' must come before the adjective 'clean' -> 'very clean'."
+        explanation: "'cleanly very' is incorrect word order. The modifier 'very' must precede the adjective 'clean' -> 'very clean'."
       },
       {
         id: 22,
         part: "B",
         textId: null,
         questionNumber: 22,
-        question: "How can these two simple sentences be best combined?\n1. 'Our school garden is rich.'\n2. 'It has medicinal plants.'",
+        question: "How can these two simple sentences be best combined using an adjective phrase?\n1. 'Our school garden is rich.'\n2. 'It has medicinal plants.'",
         options: [
           "A. Our school garden is rich in medicinal plants.",
           "B. Our school garden rich because plants are medicinal.",
-          "C. Our school garden is rich that medicinal plants.",
-          "D. Rich is our school garden to have plants.",
-          "E. Our school garden is richly medicinal plants."
+          "C. Our school garden is rich that it has herbal plants.",
+          "D. Richly in medicinal plants is our school garden.",
+          "E. Our school garden is rich to have herbal plants."
         ],
         answer: 0,
         topic: "Sentence Synthesis",
         skill: "Sentence Combining",
         difficulty: "MOTS",
-        explanation: "'rich in medicinal plants' correctly combines both sentences using Adjective Phrase Pattern 2."
+        explanation: "'rich in medicinal plants' correctly combines both clauses using Pattern 2 (Adjective + Prepositional Phrase)."
       },
       {
         id: 23,
         part: "B",
         textId: null,
         questionNumber: 23,
-        question: "A student wrote:\n'The city park look very dirty and do not have enough trash bins.'\nWhich revision fixes all grammatical errors?",
+        question: "A student drafted this sentence:\n'The city park look very dirty and do not have enough trash bins.'\nWhich option provides the most accurate grammatical revision?",
         options: [
           "A. The city park looks very dirty and does not have enough trash bins.",
           "B. The city park looks very dirty and do not have enough trash bins.",
           "C. The city park look very dirty and does not has enough trash bins.",
-          "D. The city park is look dirty and does not have trash bins.",
-          "E. The city park looks dirtily and do not have trash bins."
+          "D. The city park is looking dirty and do not have enough trash bins.",
+          "E. The city park looks dirtily and does not have enough trash bins."
         ],
         answer: 0,
         topic: "Error Analysis",
         skill: "Grammar Correction",
         difficulty: "HOTS",
-        explanation: "'The city park' is singular, so it requires 'looks' and 'does not have'."
+        explanation: "Singular subject 'The city park' requires singular verb agreement ('looks') and negative auxiliary ('does not have')."
       },
       {
         id: 24,
         part: "B",
         textId: null,
         questionNumber: 24,
-        question: "Which of the following sentences best describes a home garden using both sensory details and correct Simple Present tense?",
+        question: "Which sentence provides the most vivid description while maintaining accurate Simple Present grammar?",
         options: [
-          "A. My home garden was very green yesterday morning.",
-          "B. My home garden looks very green, smells fresh with jasmine flowers, and provides a peaceful place to relax.",
-          "C. My home garden looking green and smelling good always.",
-          "D. My home garden look green and have many flower.",
-          "E. My home garden are green and students like it."
+          "A. My home garden was very green, smelled like flowers, and provided good shade.",
+          "B. My home garden looks very green, smells fresh with jasmine, and provides cool shade.",
+          "C. My home garden looks so green, smelling fresh with jasmine, and providing cool shade.",
+          "D. My home garden look very green, smell fresh with jasmine, and provide cool shade.",
+          "E. My home garden is looking green, is smelling fresh with jasmine, and is giving shade."
         ],
         answer: 1,
         topic: "Synthesizing Description",
         skill: "Vivid & Accurate Description",
         difficulty: "HOTS",
-        explanation: "Option B combines sensory verbs (looks, smells), adjective phrases (very green, fresh), and correct singular agreement (looks, smells, provides)."
+        explanation: "Option B uses parallel, singular Simple Present verbs ('looks', 'smells', 'provides') combined with vivid sensory adjective phrases."
       },
       {
         id: 25,
         part: "B",
         textId: null,
         questionNumber: 25,
-        question: "Read the excerpt:\n'[1] Our school canteen is very clean. [2] It has neat tables and recycling bins. [3] The cleaners sweeps the floor twice a day. [4] As a result, students feel comfortable eating there.'\nWhich sentence contains a grammatical error in subject-verb agreement?",
+        question: "Read the following descriptive excerpt:\n'[1] Our school canteen is very tidy. [2] It has clean tables and recycling bins. [3] The cleaners sweeps the floor twice daily. [4] As a result, students feel comfortable eating there.'\nWhich numbered sentence contains a subject-verb agreement error?",
         options: [
           "A. Sentence [1]",
           "B. Sentence [2]",
@@ -1044,7 +1043,7 @@ Because of their hard work, the backyard looks beautiful and stays free of mosqu
         topic: "Error Analysis in Paragraph",
         skill: "Identifying Paragraph Agreement Error",
         difficulty: "HOTS",
-        explanation: "In Sentence [3], 'The cleaners' is plural (they), so the verb should be 'sweep' instead of 'sweeps'."
+        explanation: "In Sentence [3], 'The cleaners' is plural (they), so the verb must be in base form 'sweep' instead of 'sweeps'."
       }
     ]
   },
