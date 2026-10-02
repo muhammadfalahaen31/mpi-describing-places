@@ -1,6 +1,6 @@
 /**
  * EVALUATION & ANALYTICS MODULE (TEACHER MODE WITH REAL-TIME CLOUD SYNC & CLASS FILTER)
- * Manages Student Scorecard, Teacher Dashboard, Item Analysis, Class Filter (XI Reguler 1-10), and CSV Data Export.
+ * Manages Student Scorecard, Teacher Dashboard, Item Analysis, Class Filter (XI Reguler 1-10), CSV Data Export, and Instant Data Import.
  */
 
 const ResultsManager = {
@@ -13,8 +13,38 @@ const ResultsManager = {
   isLiveSyncActive: false,
 
   init() {
+    this.checkUrlAutoImport();
     this.renderResultsTab();
     this.startLiveCloudSync();
+  },
+
+  // Check URL parameters for direct student submissions (?import=...)
+  checkUrlAutoImport() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      let importCode = urlParams.get("import");
+      
+      if (!importCode && window.location.hash.includes("import=")) {
+        const hashParams = new URLSearchParams(window.location.hash.split("?")[1] || window.location.hash.substring(1));
+        importCode = hashParams.get("import");
+      }
+
+      if (importCode && typeof FirebaseSync !== 'undefined') {
+        const importedStudent = FirebaseSync.importStudentCode(importCode);
+        if (importedStudent) {
+          setTimeout(() => {
+            alert(`🎉 Berhasil Mengimpor Hasil Siswa!\n\nNama: ${importedStudent.name}\nKelas: ${importedStudent.studentClass || 'XI'}\nNilai: ${importedStudent.assessment?.totalScore || 0}/25 (${importedStudent.assessment?.percentage || 0}%)\nKategori: ${importedStudent.assessment?.band || '-'}`);
+            this.selectedClassFilter = importedStudent.studentClass || "ALL";
+            this.activeView = "teacher";
+            this.renderResultsTab();
+            // Clean URL query without page reload
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }, 300);
+        }
+      }
+    } catch (e) {
+      console.warn("Auto-import check completed with notice:", e);
+    }
   },
 
   startLiveCloudSync() {
@@ -25,7 +55,7 @@ const ResultsManager = {
         if (this.activeView === "teacher") {
           const tbody = document.getElementById("teacher-student-tbody");
           if (tbody) {
-            this.updateLiveStats();
+            this.renderResultsTab();
           }
         }
       });
@@ -165,9 +195,14 @@ const ResultsManager = {
 
           <div class="flex items-center gap-2">
             <button 
+              onclick="ResultsManager.openImportModal()"
+              class="px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs transition-all flex items-center gap-1.5 shadow-sm">
+              <span>📥</span> Import Data Siswa
+            </button>
+            <button 
               onclick="ResultsManager.refreshCloudData()"
               class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 flex items-center gap-1">
-              <span>🔄</span> Refresh Cloud
+              <span>🔄</span> Sync Cloud
             </button>
           </div>
         </div>
@@ -279,7 +314,7 @@ const ResultsManager = {
           <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
               <h4 class="text-lg font-bold text-slate-900">Daftar Nilai Siswa (${this.selectedClassFilter})</h4>
-              <p class="text-xs text-slate-500">Klik baris siswa untuk melihat lembar jawaban dan refleksinya.</p>
+              <p class="text-xs text-slate-500">Data terintegrasi secara otomatis dari Mode Siswa (HP / Tab / Laptop).</p>
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
@@ -375,7 +410,7 @@ const ResultsManager = {
         <tr class="hover:bg-emerald-50/40 transition-colors cursor-pointer" onclick="ResultsManager.openStudentModal('${s.id}')">
           <td class="py-3 px-3 font-bold text-slate-700">${index + 1}</td>
           <td class="py-3 px-3 font-bold text-slate-900">${s.name || 'Anonymous Student'}</td>
-          <td class="py-3 px-3 text-emerald-800 font-semibold text-xs">${s.studentClass || 'XI Reguler'}</td>
+          <td class="py-3 px-3 text-emerald-800 font-semibold text-xs">${s.studentClass || 'XI Reguler 1'}</td>
           <td class="py-3 px-3 text-center text-slate-700 font-medium">${isComp ? `${ast.readingScore}/10` : '-'}</td>
           <td class="py-3 px-3 text-center text-slate-700 font-medium">${isComp ? `${ast.grammarScore}/15` : '-'}</td>
           <td class="py-3 px-3 text-center font-bold text-emerald-800">${isComp ? `${ast.totalScore}/25` : '-'}</td>
@@ -457,6 +492,54 @@ const ResultsManager = {
     `).join('');
   },
 
+  renderStudentView() {
+    const student = StorageManager.getCurrentStudent();
+    const ast = student.assessment || {};
+    const ref = student.reflection || {};
+
+    return `
+      <div class="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider block">Candidate Scorecard</span>
+            <h3 class="text-2xl font-bold text-slate-900">${student.name || 'Candidate'}</h3>
+            <p class="text-xs text-slate-500">Class: <strong>${student.studentClass || 'XI Reguler 1'}</strong></p>
+          </div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full uppercase">
+            ${ast.completed ? 'Completed' : 'In Progress'}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+            <span class="text-[11px] text-slate-400 font-bold uppercase block">Reading</span>
+            <span class="text-2xl font-bold text-slate-800">${ast.readingScore || 0}/10</span>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+            <span class="text-[11px] text-slate-400 font-bold uppercase block">Grammar</span>
+            <span class="text-2xl font-bold text-slate-800">${ast.grammarScore || 0}/15</span>
+          </div>
+          <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-center">
+            <span class="text-[11px] text-emerald-800 font-bold uppercase block">Total Score</span>
+            <span class="text-2xl font-black text-emerald-800">${ast.totalScore || 0}/25</span>
+          </div>
+          <div class="p-4 bg-teal-50 rounded-2xl border border-teal-100 text-center">
+            <span class="text-[11px] text-teal-800 font-bold uppercase block">Percentage</span>
+            <span class="text-2xl font-black text-teal-800">${ast.percentage || 0}%</span>
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2">
+          <h5 class="font-bold text-slate-800 uppercase tracking-wider">Reflection Summary:</h5>
+          <p><strong>Learned:</strong> ${ref.q1_learned || '-'}</p>
+          <p><strong>Easiest Area:</strong> ${ref.q2_easiest || '-'}</p>
+          <p><strong>Challenging Area:</strong> ${ref.q3_challenging || '-'}</p>
+          <p><strong>Confidence:</strong> ${ref.q4_confidence || '-'}</p>
+        </div>
+      </div>
+    `;
+  },
+
   handleSearch(val) {
     this.searchTerm = val;
     this.renderResultsTab();
@@ -481,6 +564,87 @@ const ResultsManager = {
     }
   },
 
+  // Modal to manually import student code/link or scan local cache
+  openImportModal() {
+    const modalContainer = document.getElementById("student-modal-container");
+    if (!modalContainer) return;
+
+    modalContainer.innerHTML = `
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 p-6 sm:p-8 space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">📥</span>
+              <h3 class="text-lg font-bold text-slate-900">Import Data Hasil Siswa</h3>
+            </div>
+            <button 
+              onclick="ResultsManager.closeStudentModal()"
+              class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold">
+              ✕
+            </button>
+          </div>
+
+          <p class="text-xs text-slate-500">
+            Tempelkan <strong>Kode Nilai Siswa (MPI-...)</strong>, <strong>Link Hasil Siswa</strong>, atau klik scan untuk menarik data yang sudah pernah dikerjakan di browser ini.
+          </p>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-700 uppercase">Kode Hasil / URL Siswa:</label>
+            <textarea 
+              id="import-code-input"
+              rows="4" 
+              placeholder="Tempel kode 'MPI-...' atau link lengkap di sini..."
+              class="w-full p-3 rounded-2xl border border-slate-200 text-xs sm:text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-600 leading-relaxed"></textarea>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-2 pt-2">
+            <button 
+              onclick="ResultsManager.submitImportCode()"
+              class="w-full sm:flex-1 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-md transition-all">
+              ✓ Proses & Masukkan Nilai
+            </button>
+            <button 
+              onclick="ResultsManager.scanLocalDataFromModal()"
+              class="w-full sm:flex-1 py-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-all">
+              🔍 Scan Cache Browser Ini
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  submitImportCode() {
+    const input = document.getElementById("import-code-input")?.value;
+    if (!input || !input.trim()) {
+      alert("Silakan tempel kode atau URL hasil siswa terlebih dahulu.");
+      return;
+    }
+
+    if (typeof FirebaseSync !== 'undefined') {
+      const student = FirebaseSync.importStudentCode(input);
+      if (student) {
+        SoundManager.playCelebration();
+        alert(`✅ Berhasil Mengimpor Data:\nNama: ${student.name}\nKelas: ${student.studentClass || 'XI'}\nNilai: ${student.assessment?.totalScore || 0}/25`);
+        this.closeStudentModal();
+        this.selectedClassFilter = student.studentClass || "ALL";
+        this.renderResultsTab();
+      } else {
+        alert("❌ Format kode atau URL tidak valid. Pastikan Anda menyalin kode lengkap.");
+      }
+    }
+  },
+
+  scanLocalDataFromModal() {
+    if (typeof FirebaseSync !== 'undefined') {
+      const count = FirebaseSync.scanAndRecoverLocalData();
+      SoundManager.playCelebration();
+      alert(`🔍 Pemindaian selesai!\nDitemukan dan dipulihkan: ${count} sesi pengerjaan siswa.`);
+      this.closeStudentModal();
+      this.renderResultsTab();
+    }
+  },
+
   openStudentModal(studentId) {
     const students = StorageManager.getAllStudents();
     const student = students.find(s => s.id === studentId);
@@ -499,7 +663,7 @@ const ResultsManager = {
             <div>
               <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider block">Lembar Diagnostik Siswa</span>
               <h3 class="text-2xl font-bold text-slate-900">${student.name || 'Anonymous Student'}</h3>
-              <p class="text-xs text-slate-500 font-medium">Kelas: <strong>${student.studentClass || 'XI Reguler'}</strong> • Tanggal: ${new Date(student.startedAt).toLocaleString()}</p>
+              <p class="text-xs text-slate-500 font-medium">Kelas: <strong>${student.studentClass || 'XI Reguler 1'}</strong> • Tanggal: ${new Date(student.startedAt).toLocaleString()}</p>
             </div>
             <button 
               onclick="ResultsManager.closeStudentModal()"
