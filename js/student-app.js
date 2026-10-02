@@ -864,10 +864,17 @@ const StudentApp = {
   renderResult(container) {
     const ast = this.studentData.assessment || {};
     const ref = this.studentData.reflection || {};
+    const resultCode = typeof FirebaseSync !== 'undefined' ? FirebaseSync.exportStudentCode(this.studentData) : "";
+
+    // Base URL for direct teacher link
+    const currentOrigin = window.location.origin + window.location.pathname.replace(/siswa\.html|student\.html/, '');
+    const teacherUrl = `${currentOrigin}index.html?import=${encodeURIComponent(resultCode)}`;
 
     container.innerHTML = `
       <div class="max-w-2xl mx-auto my-4 sm:my-8 px-2 space-y-6 animate-fadeIn pb-16">
         <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200/80 text-center space-y-6">
+          
+          <!-- Trophy & Header -->
           <div class="w-20 h-20 rounded-3xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-4xl mx-auto shadow-inner">
             🏆
           </div>
@@ -878,8 +885,14 @@ const StudentApp = {
             </span>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">CONGRATULATIONS, ${this.studentData.name.toUpperCase()}!</h2>
             <p class="text-xs sm:text-sm text-slate-500">
-              Class: <strong>${this.studentData.studentClass}</strong> • Your report has been live-synchronized to the Teacher Dashboard.
+              Class: <strong>${this.studentData.studentClass}</strong> • Your report is automatically synced to the Teacher Dashboard.
             </p>
+          </div>
+
+          <!-- Cloud Sync Status Badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs font-semibold text-emerald-900 shadow-xs">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>☁️ Cloud Sync Active: Auto-submitted to Pak Falahaen's Dashboard</span>
           </div>
 
           <!-- Score Metrics Grid (Out of 25) -->
@@ -904,6 +917,36 @@ const StudentApp = {
 
           <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-sm text-emerald-950 font-medium">
             <strong>Achievement Band:</strong> ${ast.band}
+          </div>
+
+          <!-- Teacher Submission & Sharing Tools -->
+          <div class="bg-gradient-to-r from-slate-900 to-emerald-950 p-5 rounded-2xl text-white space-y-3 text-left">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-emerald-300 flex items-center gap-1.5">
+                <span>📤</span> Direct Integration with Teacher
+              </span>
+              <span class="text-[11px] text-slate-400">Multi-Channel Sync</span>
+            </div>
+            <p class="text-xs text-slate-300">
+              Your results are synced via cloud. If requested by your teacher, you can also send your verified scorecard directly or copy your verification code.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+              <button 
+                onclick="StudentApp.sendToTeacherDirect('${teacherUrl}')"
+                class="px-3 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm">
+                <span>👨‍🏫</span> Open in Teacher View
+              </button>
+              <button 
+                onclick="StudentApp.shareViaWhatsApp()"
+                class="px-3 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm">
+                <span>💬</span> Send via WhatsApp
+              </button>
+              <button 
+                onclick="StudentApp.copyResultCode('${resultCode}')"
+                class="px-3 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5 border border-white/20">
+                <span>📋</span> Copy Result Code
+              </button>
+            </div>
           </div>
 
           <!-- Question-by-Question Review -->
@@ -937,19 +980,50 @@ const StudentApp = {
             </div>
           </div>
 
-          <div class="pt-4 border-t border-slate-100">
+          <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-center gap-3">
             <button 
               onclick="window.print()"
-              class="px-8 py-3 rounded-2xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs sm:text-sm font-bold transition-colors">
+              class="px-6 py-3 rounded-2xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs sm:text-sm font-bold transition-colors">
               🖨️ Print / Save Scorecard
             </button>
           </div>
         </div>
       </div>
     `;
+  },
+
+  sendToTeacherDirect(url) {
+    SoundManager.playClick();
+    window.open(url, '_blank');
+  },
+
+  shareViaWhatsApp() {
+    SoundManager.playClick();
+    const ast = this.studentData.assessment || {};
+    const ref = this.studentData.reflection || {};
+    const text = `*HASIL ASESMEN MPI DESCRIBING PLACES*\nNama: ${this.studentData.name}\nKelas: ${this.studentData.studentClass}\nNilai Total: ${ast.totalScore}/25 (${ast.percentage}%)\nReading: ${ast.readingScore}/10 | Grammar: ${ast.grammarScore}/15\nKategori: ${ast.band}\nRefleksi: ${ref.q1_learned || '-'}\nTingkat Keyakinan: ${ref.q4_confidence || '-'}`;
+    const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
+  },
+
+  copyResultCode(code) {
+    SoundManager.playClick();
+    if (!code) {
+      code = FirebaseSync.exportStudentCode(this.studentData);
+    }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(() => {
+        alert("📋 Student Result Code copied to clipboard! You can paste this code to your teacher.");
+      }).catch(() => {
+        prompt("Copy your Student Result Code:", code);
+      });
+    } else {
+      prompt("Copy your Student Result Code:", code);
+    }
   }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   StudentApp.init();
 });
+
