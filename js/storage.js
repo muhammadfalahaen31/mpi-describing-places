@@ -1,6 +1,6 @@
 /**
- * STORAGE & DATA PERSISTENCE MODULE (REVISED FOR 25-QUESTION ASSESSMENT)
- * Manages local session, multi-student records, CSV export, and demo records for Teacher Dashboard.
+ * STORAGE & DATA PERSISTENCE MODULE (REVISED FOR 25-QUESTION ASSESSMENT & LIVE SYNC)
+ * Manages local session, multi-student records, CSV export, automatic local recovery, and demo records for Teacher Dashboard.
  */
 
 const STORAGE_KEYS = {
@@ -14,6 +14,8 @@ const StorageManager = {
     if (!localStorage.getItem(STORAGE_KEYS.STUDENTS_REGISTRY)) {
       this.seedInitialTeacherData();
     }
+    // Auto-recover any previous student session completed in this browser
+    this.recoverAllLocalSessions();
   },
 
   getCurrentStudent() {
@@ -43,6 +45,7 @@ const StorageManager = {
     return {
       id: "std_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5),
       name: name,
+      studentClass: "XI Reguler 1",
       startedAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       activeTab: "home",
@@ -87,9 +90,13 @@ const StorageManager = {
   },
 
   upsertStudentRecord(student) {
+    if (!student || !student.name) return;
     try {
       const registry = this.getAllStudents();
-      const existingIndex = registry.findIndex(s => s.id === student.id || (s.name && s.name.toLowerCase() === student.name.toLowerCase()));
+      const existingIndex = registry.findIndex(s => 
+        (s.id && s.id === student.id) || 
+        (s.name && s.name.trim().toLowerCase() === student.name.trim().toLowerCase() && s.studentClass === student.studentClass)
+      );
       
       const record = {
         ...student,
@@ -97,7 +104,10 @@ const StorageManager = {
       };
 
       if (existingIndex >= 0) {
-        registry[existingIndex] = record;
+        registry[existingIndex] = {
+          ...registry[existingIndex],
+          ...record
+        };
       } else {
         registry.push(record);
       }
@@ -117,6 +127,31 @@ const StorageManager = {
       console.error("Failed to read students registry", e);
     }
     return [];
+  },
+
+  recoverAllLocalSessions() {
+    try {
+      const candidateKeys = [
+        "mpi_student_session_v2",
+        "mpi_env_current_student_v2",
+        "mpi_student_session",
+        "mpi_env_current_student"
+      ];
+
+      candidateKeys.forEach(k => {
+        const raw = localStorage.getItem(k);
+        if (raw) {
+          try {
+            const data = JSON.parse(raw);
+            if (data && data.name && data.assessment && (data.assessment.completed || data.assessment.totalScore > 0)) {
+              this.upsertStudentRecord(data);
+            }
+          } catch (e) {}
+        }
+      });
+    } catch (err) {
+      console.warn("Session recovery notice:", err);
+    }
   },
 
   resetCurrentSession() {
@@ -141,6 +176,7 @@ const StorageManager = {
     const headers = [
       "No",
       "Student Name",
+      "Class",
       "Status",
       "Reading Score (/10)",
       "Grammar Score (/15)",
@@ -160,10 +196,12 @@ const StorageManager = {
       const band = std.assessment?.completed ? std.assessment.band : "-";
       const confidence = std.reflection?.q4_confidence || "-";
       const date = std.assessment?.submittedAt ? new Date(std.assessment.submittedAt).toLocaleDateString() : "-";
+      const sClass = std.studentClass || "XI Reguler 1";
 
       return [
         index + 1,
         `"${(std.name || 'Anonymous').replace(/"/g, '""')}"`,
+        `"${sClass}"`,
         status,
         reading,
         grammar,
@@ -242,19 +280,19 @@ const StorageManager = {
     document.body.removeChild(link);
   },
 
-  // Seed sample realistic student records for 25 questions
+  // Seed sample realistic student records for 25 questions across XI Reguler 1-10
   seedInitialTeacherData() {
     const sampleNames = [
-      "Alya Zahra Kirana",
-      "Bintang Arya Pratama",
-      "Clara Stephanie Putri",
-      "Dimas Farhan Ramadhan",
-      "Elisa Nurul Hidayah",
-      "Fajar Kurniawan",
-      "Gita Maharani",
-      "Hafizh Rahmatullah",
-      "Intan Permata Sari",
-      "Jonathan Kevin Lee"
+      { name: "Alya Zahra Kirana", cls: "XI Reguler 1" },
+      { name: "Bintang Arya Pratama", cls: "XI Reguler 1" },
+      { name: "Clara Stephanie Putri", cls: "XI Reguler 2" },
+      { name: "Dimas Farhan Ramadhan", cls: "XI Reguler 2" },
+      { name: "Elisa Nurul Hidayah", cls: "XI Reguler 3" },
+      { name: "Fajar Kurniawan", cls: "XI Reguler 4" },
+      { name: "Gita Maharani", cls: "XI Reguler 5" },
+      { name: "Hafizh Rahmatullah", cls: "XI Reguler 6" },
+      { name: "Intan Permata Sari", cls: "XI Reguler 7" },
+      { name: "Jonathan Kevin Lee", cls: "XI Reguler 8" }
     ];
 
     // Out of 25: Reading /10, Grammar /15
@@ -284,7 +322,7 @@ const StorageManager = {
       { l: "Simple present tense rules for describing places.", e: "Five Senses", c: "Grammar questions", cf: "😐 Still learning", imp: "Retake practice Level 2." }
     ];
 
-    const mockRegistry = sampleNames.map((name, i) => {
+    const mockRegistry = sampleNames.map((sObj, i) => {
       const scorePair = targetScores[i];
       const ref = reflections[i];
       const rScore = scorePair.r;
@@ -303,12 +341,10 @@ const StorageManager = {
       MPI_DATA.assessment.questions.forEach((q) => {
         let isCorrect = false;
         if (q.part === "A") {
-          // Reading (10 questions)
           const errorTarget = 10 - rScore;
           const shouldBeWrong = ((q.questionNumber * 7 + i * 3) % 10) < errorTarget;
           isCorrect = !shouldBeWrong;
         } else {
-          // Grammar (15 questions)
           const errorTarget = 15 - gScore;
           const shouldBeWrong = ((q.questionNumber * 5 + i * 2) % 15) < errorTarget;
           isCorrect = !shouldBeWrong;
@@ -332,7 +368,8 @@ const StorageManager = {
 
       return {
         id: "mock_std_" + (i + 1),
-        name: name,
+        name: sObj.name,
+        studentClass: sObj.cls,
         startedAt: new Date(Date.now() - (i + 1) * 3600000).toISOString(),
         updatedAt: new Date(Date.now() - i * 1800000).toISOString(),
         activeTab: "results",
